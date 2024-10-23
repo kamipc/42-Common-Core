@@ -14,19 +14,19 @@
 char	*ft_strchr(const char *s, int c)
 {
 	int		i;
-	char	cvtd_c;
+	char	cc;
 
-	cvtd_c = (char) c;
+	cc = (char) c;
 	i = 0;
-	if (!s && cvtd_c != '\0')
+	if (!s && cc != '\0')
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		if (s[i] == cvtd_c)
+		if (s[i] == cc)
 			return ((char *) s + i);
 		i++;
 	}
-	if (cvtd_c == '\0')
+	if (cc == '\0')
 		return ((char *) s + i);
 	return (NULL);
 }

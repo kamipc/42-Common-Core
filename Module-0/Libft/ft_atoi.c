@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 int	ft_atoi(const char *nptr)
 {
 	int	i;
@@ -28,8 +27,8 @@ int	ft_atoi(const char *nptr)
 	while (nptr[i] != '\0')
 	{
 		if (!(nptr[i] >= '0' && nptr[i] <= '9'))
-			break;
-		n = n * 10 +(nptr[i] - '0');
+			break ;
+		n = n * 10 + (nptr[i] - '0');
 		i++;
 	}
 	return (n * sign);
