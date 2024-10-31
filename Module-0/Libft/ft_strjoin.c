@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 16:57:47 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-10-31 16:57:47 by cpinho-c         ###   ########.fr       */
+/*   Created: 2024-10-31 17:59:48 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-10-31 17:59:48 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	void	*temp;
+	char	*str;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	f_len;
 
-	temp = malloc (nmemb * size);
-	if (temp == NULL)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	f_len = s1_len + s2_len;
+	str = (char *)malloc((s1_len + s2_len) * sizeof(char *) + 1);
+	if (str == NULL)
 		return (NULL);
-	ft_bzero(temp, nmemb * size);
-	return (temp);
+	ft_memcpy(str, s1, s1_len);
+	ft_memcpy(&str[s1_len], s2, s2_len);
+	str[f_len] = '\0';
+	return (str);
 }
