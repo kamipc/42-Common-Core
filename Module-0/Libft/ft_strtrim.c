@@ -42,10 +42,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	new_str = ft_substr(s1, start_set, new_str_len);
 	return (new_str);
 }
-static	char	*newstr(char const *s1, char const *set)
-{
-	
-}
 
 static	size_t	checktrim(char const *s1, char const *set, size_t start)
 {
