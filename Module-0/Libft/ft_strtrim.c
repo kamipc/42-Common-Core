@@ -11,8 +11,10 @@
 /* ************************************************************************** */
 #include "libft.h"
 
+
 static size_t	checktrim(char const *s1, char const *set, size_t start);
 static size_t	checkset(char const c, char const *set);
+static char		*emptystr(void);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -24,23 +26,30 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	if (s1 == NULL && set == NULL)
 	{
-		new_str = (char *) malloc (1);
-		if (new_str == NULL)
-			return (NULL);
-		new_str[0] = '\0';
+		new_str = emptystr();
 		return (new_str);
 	}
 	start_set = checktrim(s1, set, 0);
 	s1_len = ft_strlen(s1);
-	end_set = checktrim(s1, set, s1_len - 1) + 1;
+	end_set = checktrim(s1, set, s1_len);
 	if (end_set <= start_set)
-		end_set = s1_len;
+	{
+		new_str = emptystr();
+		return (new_str);
+	}
 	new_str_len = end_set - start_set;
-	new_str = (char *) malloc (new_str_len + 1);
-	if (new_str == NULL)
-		return (NULL);
 	new_str = ft_substr(s1, start_set, new_str_len);
 	return (new_str);
+}
+static char	*emptystr(void)
+{
+	char	*str;
+
+	str = (char *) malloc (1);
+	if (str == NULL)
+		return (NULL);
+	str[0] = '\0';
+	return (str);
 }
 
 static	size_t	checktrim(char const *s1, char const *set, size_t start)
@@ -54,16 +63,18 @@ static	size_t	checktrim(char const *s1, char const *set, size_t start)
 			start++;
 		}
 	}
-	else if (start > 0)
+	else
 	{
-		while (s1[start] != '\0')
+		start--;
+		while (start > 0)
 		{
 			if (checkset(s1[start], set) == 0)
-				return (start);
+				return (start + 1);
+
 			start--;
 		}
 	}
-	return (0);
+	return (start);
 }
 
 static	size_t	checkset(char const c, char const *set)
