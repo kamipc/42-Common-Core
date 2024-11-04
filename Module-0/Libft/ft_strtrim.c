@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-
 static size_t	checktrim(char const *s1, char const *set, size_t start);
 static size_t	checkset(char const c, char const *set);
 static char		*emptystr(void);
@@ -41,6 +40,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	new_str = ft_substr(s1, start_set, new_str_len);
 	return (new_str);
 }
+
 static char	*emptystr(void)
 {
 	char	*str;
@@ -70,7 +70,6 @@ static	size_t	checktrim(char const *s1, char const *set, size_t start)
 		{
 			if (checkset(s1[start], set) == 0)
 				return (start + 1);
-
 			start--;
 		}
 	}

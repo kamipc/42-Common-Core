@@ -12,7 +12,7 @@
 #include "libft.h"
 
 static size_t	check_n_len(long int n);
-static char		*n_to_str(long int n, char *str);
+static char		*n_to_str(long int n, char *str, long int len);
 
 char	*ft_itoa(int n)
 {
@@ -20,33 +20,38 @@ char	*ft_itoa(int n)
 	size_t	str_len;
 
 	str_len = check_n_len(n);
-	n_str = (char *) malloc (str_len * sizeof(char *) + 1);
+	if (n == 0)
+	{
+		n_str = (char *) malloc (2);
+		n_str[0] = '0';
+		n_str[1] = '\0';
+		return (n_str);
+	}
+	n_str = (char *) malloc (str_len + 1);
 	if (n_str == NULL)
 		return (NULL);
-	n_str = n_to_str(n, n_str);
+	n_str = n_to_str(n, n_str, str_len);
 	return (n_str);
 }
-static char		*n_to_str(long int n, char *str)
+
+static char	*n_to_str(long int n, char *str, long int len)
 {
-	
+	size_t	i;
+
+	i = len - 1;
 	if (n < 0)
 	{
 		str[0] = '-';
-		str++;
 		n *= -1;
 	}
-	if (n > 9)
+	while (n > 0)
 	{
-		n_to_str(n / 10, str);
-		n_to_str(n % 10, str);
+		str[i] = (n % 10) + '0';
+		n /= 10;
+		i--;
 	}
-	else if (n >= 0 && n <= 9)
-	{
-		*str = n + '\0';
-		str++;
-	}
-	*str = '\0';
-	return (&str[0]);
+	str[len] = '\0';
+	return (str);
 }
 
 static size_t	check_n_len(long int n)
