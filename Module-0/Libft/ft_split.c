@@ -11,36 +11,88 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static size_t	checksplit(char const *s, char c);
+static size_t	check_all_words(char const *s, char c);
+static char		*create_words(const char *s, char c, size_t *i);
+static void		free_all(char **split_array, size_t total_words);
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split;
-	size_t	found_c;
-	char	*str1;
-	char	*str2;
+	char	**split_array;
+	size_t	total_words;
+	size_t	i;
+	size_t	j;
 
-	split = (char **) malloc (16 * sizeof(char *) + 1);
-	if (split == NULL)
+	total_words = check_all_words(s, c);
+	split_array = (char **) malloc ((total_words + 1) * sizeof(char *));
+	if (split_array == NULL)
 		return (NULL);
-	found_c = checksplit(s, c);
-	str1 = ft_substr(s, 0, found_c);
-	str2 = ft_substr(s, found_c, ft_strlen(s));
-	split[0] = &str1[0];
-	split[1] = &str2[0];
-	split[2] = '\0';
-	return (split);
+	i = 0;
+	j = 0;
+	while (j < total_words)
+	{
+		split_array[j] = create_words(s, c, &i);
+		if (split_array[j] == NULL)
+		{
+			free_all(split_array, j);
+			return (NULL);
+		}
+		j++;
+	}
+	split_array[j] = NULL;
+	return (split_array);
 }
 
-static size_t	checksplit(char const *s, char c)
+static size_t	check_all_words(char const *s, char c)
+{
+	size_t	i;
+	size_t	total_words;
+
+	i = 0;
+	total_words = 0;
+	if (s[0] != c && (s[0] >= 32 && s[0] <= 126))
+	{
+		total_words++;
+		i++;
+	}
+	while (s[i])
+	{
+		if (s[i - 1] == c && s[i] != c && (s[i] >= 32 && s[i] <= 126))
+			total_words++;
+		i++;
+	}
+	return (total_words);
+}
+
+static char	*create_words(const char *s, char c, size_t *i)
+{
+	size_t	start;
+	size_t	w_len;
+	char	*word;
+
+	w_len = 0;
+	while (s[*i] && s[*i] == c)
+		(*i)++;
+	if (s[*i] >= 32 && s[*i] <= 126)
+		start = *i;
+	while (s[*i] && s[*i] != c)
+	{
+		if (s[*i] >= 32 && s[*i] <= 126)
+			w_len++;
+		(*i)++;
+	}
+	word = ft_substr(s, start, w_len);
+	return (word);
+}
+
+static void	free_all(char	**split_array, size_t j)
 {
 	size_t	i;
 
-	while (s[i] != '\0')
+	i = 0;
+	while (i < j)
 	{
-		if (s[i] == c)
-			break ;
+		free(split_array[i]);
 		i++;
 	}
-	return (i);
+	free(split_array);
 }
