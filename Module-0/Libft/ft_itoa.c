@@ -23,6 +23,8 @@ char	*ft_itoa(int n)
 	if (n == 0)
 	{
 		n_str = (char *) malloc (2);
+		if (!n_str)
+			return (NULL);
 		n_str[0] = '0';
 		n_str[1] = '\0';
 		return (n_str);
