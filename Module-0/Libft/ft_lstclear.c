@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 15:50:45 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-10-31 15:50:45 by cpinho-c         ###   ########.fr       */
+/*   Created: 2024-11-15 12:16:59 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-11-15 12:16:59 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	char	*dest;
-	size_t	i;
-	size_t	s_len;
+	t_list	*node;
+	t_list	*next_node;
 
-	s_len = ft_strlen(s);
-	dest = (char *)malloc (s_len + 1);
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (i < s_len)
+	node = *lst;
+	while (node)
 	{
-		dest[i] = s[i];
-		i++;
+		next_node = node->next;
+		ft_lstdelone(node, del);
+		node = next_node;
 	}
-	dest[i] = '\0';
-	return (dest);
+	free(node);
+	*lst = NULL;
 }
