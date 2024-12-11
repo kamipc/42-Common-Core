@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   printf_uns.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <user@student.42.fr>                  #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-12-06 11:49:02 by user              #+#    #+#             */
-/*   Updated: 2024-12-06 11:49:02 by user             ###   ########.fr       */
+/*   Created: 2024-12-06 12:53:11 by user              #+#    #+#             */
+/*   Updated: 2024-12-06 12:53:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+#include "libftprintf.h"
 
-int	ft_printf(const char *mand, ...);
-int	printf_char (char c);
-int	printf_str(char * str);
-int	printf_digits(int n);
-int	printf_uns(unsigned int n);
-int	printf_hex(unsigned int n, int state);
+static void	prt_nbr(unsigned int n);
 
-#endif
+int	printf_uns(unsigned int n)
+{
+	size_t	count;
+
+	prt_nbr(n);
+	count = 0;
+	while (n > 0)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count);
+}
+
+static void	prt_nbr(unsigned int n)
+{
+	if (n > 9)
+	{
+		prt_nbr(n / 10);
+		prt_nbr(n % 10);
+	}
+	else
+		ft_putchar_fd(n + '0', 1);
+}

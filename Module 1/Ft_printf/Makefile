@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cpinho-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/31 14:05:01 by cpinho-c          #+#    #+#              #
-#    Updated: 2024/10/31 14:07:07 by cpinho-c         ###   ########.fr        #
+#    Created: 2024/12/11 14:55:53 by cpinho-c          #+#    #+#              #
+#    Updated: 2024/12/11 14:56:08 by cpinho-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,13 @@ NAME = libftprintf.a
 AR = ar
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = 
+SRCS = ft_printf.c printf_char.c printf_digits.c printf_str.c \
+	   printf_uns.c printf_hex.c 
 	
 OBJS = $(SRCS:.c=.o)
 RM = rm -rf
 
-.SILENT:
+# .SILENT:
 
 all: $(NAME)
 
