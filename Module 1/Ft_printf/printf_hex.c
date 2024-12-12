@@ -9,7 +9,7 @@
 /*   Updated: 2024-12-11 11:38:37 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static void	prnt_hex(unsigned int n, char *hex);
 
@@ -26,6 +26,8 @@ int	printf_hex(unsigned int n, int state)
 		prnt_hex(n, uphex);
 	else if (state == 120)
 		prnt_hex(n, lowhex);
+	if (n == 0)
+		return (1);
 	while (n > 0)
 	{
 		n /= 16;

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_char.c                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-12-12 12:04:54 by cpinho-c          #+#    #+#             */
-/*   Updated: 2024-12-12 12:04:54 by cpinho-c         ###   ########.fr       */
+/*   Created: 2024-12-12 12:04:48 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-12-12 12:04:48 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include "libft/libft.h"
+# include <stdarg.h>
 
-int	printf_char(char c)
-{
-	ft_putchar_fd(c, 1);
-	return (1);
-}
+int	ft_printf(const char *mand, ...);
+int	printf_char(char c);
+int	printf_str(char *str);
+int	printf_digits(int n);
+int	printf_uns(unsigned int n);
+int	printf_hex(unsigned int n, int state);
+int	printf_ptr(void *ptr);
+
+#endif

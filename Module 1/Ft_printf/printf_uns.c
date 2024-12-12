@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   printf_uns.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-12-06 12:53:11 by user              #+#    #+#             */
-/*   Updated: 2024-12-06 12:53:11 by user             ###   ########.fr       */
+/*   Created: 2024-12-12 12:07:44 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-12-12 12:07:44 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static void	prt_nbr(unsigned int n);
 
@@ -19,6 +19,8 @@ int	printf_uns(unsigned int n)
 
 	prt_nbr(n);
 	count = 0;
+	if (n == 0)
+		return (1);
 	while (n > 0)
 	{
 		n /= 10;

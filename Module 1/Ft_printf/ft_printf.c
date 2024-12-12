@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  #+#  +:+       +#+        */
+/*   By: cpinho-c <cpinho-c@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-12-06 11:13:10 by user              #+#    #+#             */
-/*   Updated: 2024-12-06 11:13:10 by user             ###   ########.fr       */
+/*   Created: 2024-12-12 12:04:38 by cpinho-c          #+#    #+#             */
+/*   Updated: 2024-12-12 12:04:38 by cpinho-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	print_args(va_list args, char c);
 
@@ -22,7 +22,7 @@ int	ft_printf(const char *mand, ...)
 	va_start(args, mand);
 	i = 0;
 	len = 0;
-	while (mand)
+	while (mand[i])
 	{
 		if (mand[i] == '%')
 		{
@@ -31,22 +31,31 @@ int	ft_printf(const char *mand, ...)
 		}
 		else
 		{
-
+			ft_putchar_fd(mand[i], 1);
+			len++;
 		}
+		i++;
 	}
+	va_end(args);
+	return (len);
 }
 
 static int	print_args(va_list args, char c)
 {
 	if (c == 'c')
-		return (printf_char(va_arg(args, char)));
+		return (printf_char(va_arg(args, int)));
 	else if (c == '%')
 		return (printf_char('%'));
 	else if (c == 's')
 		return (printf_str(va_arg(args, char *)));
-	else if (c == i || c == d)
+	else if (c == 'i' || c == 'd')
 		return (printf_digits(va_arg(args, int)));
-	else if (c == u)
+	else if (c == 'u')
 		return (printf_uns(va_arg(args, unsigned int)));
-	else if ()
+	else if (c == 'x' || c == 'X')
+		return (printf_hex(va_arg(args, int), c));
+	else if (c == 'p')
+		return (printf_ptr(va_arg(args, void *)));
+	else
+		return (0);
 }
