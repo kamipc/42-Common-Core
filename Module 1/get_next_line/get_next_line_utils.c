@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-
 char	*ft_strdup(const char *s)
 {
 	char	*dest;
@@ -30,25 +29,6 @@ char	*ft_strdup(const char *s)
 	}
 	dest[i] = '\0';
 	return (dest);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	f_len;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	f_len = s1_len + s2_len;
-	str = (char *)malloc(s1_len + s2_len + 1);
-	if (str == NULL)
-		return (NULL);
-	ft_memcpy(str, s1, s1_len);
-	ft_memcpy(&str[s1_len], s2, s2_len);
-	str[f_len] = '\0';
-	return (str);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -71,48 +51,70 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	size_t	f_len;
+	size_t	i;
+	size_t	j;
+
+	f_len = ft_strlen(s1) + ft_strlen(s2);
+	i = 0;
+	j = 0;
+	str = (char *)malloc(f_len + 1);
+	if (str == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[f_len] = '\0';
+	free(s1);
+	return (str);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	r_len;
+	size_t	i;
 
+	i = 0;
 	if (s == NULL)
 		return (NULL);
 	r_len = ft_strlen(s);
 	if (start >= r_len)
-	{
-		sub = (char *) malloc(1);
-		if (sub == NULL)
-			return (NULL);
-		sub[0] = '\0';
-		return (sub);
-	}
-	r_len = r_len - start;
-	if (len < r_len)
+		r_len = 0;
+	else if (len < r_len - start)
 		r_len = len;
+	else
+		r_len = r_len - start;
 	sub = (char *)malloc(r_len + 1);
 	if (sub == NULL)
 		return (NULL);
-	ft_memcpy(sub, &s[start], r_len);
+	while (i < r_len)
+	{
+		sub[i] = s[start];
+		i++;
+		start++;
+	}
 	sub[r_len] = '\0';
 	return (sub);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
-	char	*d;
-	char	*s;
 
 	i = 0;
-	d = (char *) dest;
-	s = (char *) src;
-	if (d == NULL && s == NULL)
-		return (dest);
-	while (i < n)
-	{
-		d[i] = s[i];
+	while (s[i] != '\0')
 		i++;
-	}
-	return (dest);
+	return (i);
 }
